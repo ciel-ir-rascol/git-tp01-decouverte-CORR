@@ -1,0 +1,11 @@
+# Journal du banc de test
+scripts/solution.log
+
+# Sauvegardes et fichiers temporaires
+*~
+*.bak
+*.swp
+
+# IA config file
+.claude
+CLAUDE.md

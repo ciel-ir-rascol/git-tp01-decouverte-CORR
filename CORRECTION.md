@@ -71,6 +71,9 @@ git version 2.43.0
 
 **Réponse :** Git **2.43.0**, la version fournie par Ubuntu 24.04 LTS.
 
+> [!NOTE]
+> **Dans la VM, chez soi** : Git n'y est pas installé. `git --version` répond que la commande est introuvable. Il faut d'abord `sudo apt update` puis `sudo apt install git` : la version obtenue est la même, **2.43.0**, puisque la VM est elle aussi en Ubuntu 24.04 LTS.
+
 ---
 
 ## Partie 1 — Compte GitHub

@@ -31,6 +31,10 @@ Les exemples de ce corrigé ont été obtenus par une étudiante fictive, **Léa
 
 Ce qui doit être identique : **les commandes**, **l'ordre des étapes** et **la structure des messages** de Git.
 
+## Refaire le TP chez soi
+
+Sous Windows ou macOS, refaites le TP dans la VM Ubuntu Server des TPs : [`UbuntuServer_TP_2026-10-12.ova`](https://drive.google.com/file/d/1YFFg--7t9_iR0x6Gb9NXu8n01Hx3OSQy/view?usp=sharing) sur Google Drive (compte rascol.net). La procédure d'import et de connexion est dans l'encadré **Faire le TP chez soi** du [sujet](https://github.com/ciel-ir-rascol/git-tp01-decouverte#environnement-de-travail). Seule différence avec le poste du lycée : Git n'est pas installé dans la VM (voir la [partie 0](CORRECTION.md#partie-0--préparer-son-poste) du corrigé).
+
 ---
 
 *Licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr) — BTS CIEL option IR, Lycée Louis Rascol, Albi.*

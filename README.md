@@ -1,64 +1,36 @@
-# Correction — TP01 Découverte de Git et GitHub
+# Corrigé — TP01 Découverte de Git et GitHub
 
-**⚠️ Dossier enseignant — ne jamais publier ni pousser sur le dépôt étudiant.**
+**1CIEL-IR — Corrigé commenté du TP [`git-tp01-decouverte`](https://github.com/ciel-ir-rascol/git-tp01-decouverte).**
 
-Ce dossier accompagne le dépôt public `git-tp01-decouverte`, distribué aux étudiants via GitHub. Le TP suit le cours `git-cours01-decouverte` (slides + document à trous, corrigé dans `git-cours01-decouverte-CORR`).
+Ce corrigé ne sert pas seulement à vérifier vos réponses : il explique **pourquoi** Git se comporte comme il le fait à chaque étape. Si vous comprenez les explications de ce document, vous avez compris le TP.
+
+![La chaîne Git](https://raw.githubusercontent.com/ciel-ir-rascol/git-tp01-decouverte/main/figures/chaine-git.svg)
+
+---
+
+## Comment utiliser ce corrigé
+
+1. **Faites d'abord le TP vous-même**, jusqu'au bout. Lire la réponse avant d'avoir cherché ne vous apprend presque rien : c'est en se trompant qu'on retient.
+2. **Comparez** ensuite votre `COMPTE-RENDU.md` avec [CORRECTION.md](CORRECTION.md), question par question.
+3. Pour chaque écart, **relisez l'explication** (encadrés 💡 *Pour comprendre*) et, si besoin, **refaites la manipulation** dans votre dépôt `~/tp-git/tp01-git`.
+4. Terminez par la section **[À retenir](CORRECTION.md#-à-retenir)** : c'est le résumé de ce que vous devez savoir faire pour les TP suivants.
 
 ## Contenu
 
-| Fichier | Description |
+| Fichier | Ce que vous y trouvez |
 | --- | --- |
-| [CORRECTION.md](CORRECTION.md) | Corrigé complet : réponses, sorties de référence, erreurs fréquentes, barème indicatif /20 |
-| [scripts/solution.sh](scripts/solution.sh) | Réalise tout le TP automatiquement (parties 0 à 7 + bonus 2), en affichant chaque commande et sa sortie |
-| [scripts/test-docker.sh](scripts/test-docker.sh) | Banc de test : poste vierge → `verifier.sh` → `solution.sh` → `verifier.sh` |
-| `../git-tp01-decouverte/scripts/verifier.sh` | Auto-vérification (25 contrôles) : il vit dans le **dépôt étudiant**, dont il fait partie |
+| [CORRECTION.md](CORRECTION.md) | Réponses commentées, exemples de sorties, erreurs fréquentes, ce qui est évalué, résumé final |
 
-> [!WARNING]
-> `solution.sh` modifie `~/.gitconfig` et crée `~/.ssh/id_ed25519` : il refuse de se lancer hors d'un conteneur. Ne pas le forcer (`SOLUTION_FORCER=1`) sur votre poste.
+## Vos sorties ne sont pas identiques ? C'est normal
 
-## Déroulé conseillé (3h, après le cours de 1h)
+Les exemples de ce corrigé ont été obtenus par une étudiante fictive, **Léa Martin** (pseudo `lea-martin`). Chez vous, changent forcément :
 
-| Temps | Parties | Remarques |
-| --- | --- | --- |
-| 0h00 – 0h35 | 0 → 2 | La création des comptes GitHub est le goulot d'étranglement : vérification par e-mail, énigme, parfois lente si toute la classe s'inscrit en même temps (même IP). Faire commencer la partie 2 pendant l'attente du code. |
-| 0h35 – 1h45 | 3 → 4 | Cœur du TP, en autonomie. Passer vérifier les messages de commit et la structure de `COMPTE-RENDU.md` dès la 3.6. |
-| 1h45 – 2h10 | 5 | Faire une démonstration collective de la copie de la clé publique au vidéoprojecteur : c'est là que les erreurs sont les plus graves (clé privée copiée). |
-| 2h10 – 3h00 | 6 → 7 | Le script de vérification (7.3) sert de « ticket de sortie ». Récupérer les URL des dépôts. |
+- les **hashs** des commits (`8fd6812…`) : ils dépendent du contenu, de l'auteur **et de la date** de chaque commit ;
+- les **dates**, votre **nom**, votre **e-mail**, votre **pseudo** ;
+- la **langue** des messages : les exemples sont en anglais, votre poste peut les afficher en français. La correspondance est donnée au début de [CORRECTION.md](CORRECTION.md#messages-de-git-en-anglais-et-en-français).
 
-Les étudiants rapides font les bonus. Le bonus 2 (conflit) prépare bien le TP suivant.
+Ce qui doit être identique : **les commandes**, **l'ordre des étapes** et **la structure des messages** de Git.
 
-## Préparation avant la séance
+---
 
-1. **Publier le dépôt étudiant** sur `ciel-ir-rascol/git-tp01-decouverte` (**public** : les étudiants le lisent et le clonent en HTTPS **avant** d'avoir un compte ou une clé).
-2. **Postes** : Ubuntu Desktop 24.04, `git` et `openssh-client` installés (c'est le cas par défaut pour `ssh`). Vérifier que :
-   - le **port 22 sortant vers `github.com`** n'est pas filtré par le pare-feu du lycée. Sinon, GitHub accepte SSH sur le port 443 : ajouter dans `~/.ssh/config` :
-     ```text
-     Host github.com
-         Hostname ssh.github.com
-         Port 443
-         User git
-     ```
-   - le **dossier personnel est persistant** d'une séance à l'autre (clé SSH, `~/.gitconfig`, `~/tp-git`). Sinon, prévenir les étudiants qu'il faudra régénérer la clé à chaque séance, et privilégier `git push` systématique en fin de séance.
-3. **Inscriptions GitHub** : beaucoup de créations de comptes depuis la même IP publique peuvent déclencher des vérifications supplémentaires côté GitHub. Si possible, faire créer les comptes **à la maison avant la séance** (la partie 1 est lisible sans compte).
-4. **Téléphones** : la 2FA sera réclamée par GitHub dans les semaines suivantes ; prévenir les étudiants.
-
-## Validation
-
-| Élément | État |
-| --- | --- |
-| `verifier.sh` | ✅ Testé dans Ubuntu 24.04 (Docker) : échec immédiat sur poste vierge, **24/25** après `solution.sh` |
-| Comportements décrits dans le sujet | ✅ `git status` hors dépôt, zones, `diff`, `restore`, `restore --staged`, `.gitignore`, `show hash:fichier`, `status` « up to date » malgré un commit distant (6.4 a), `pull` en *fast-forward*, `push` refusé (*fetch first*), message *divergent branches*, conflit et fusion |
-| Authentification SSH auprès de GitHub, pages web de GitHub, 2FA | ⚠️ **Non testés** : GitHub est simulé par des dépôts nus locaux (`url.<base>.insteadOf`). C'est le seul contrôle en échec du banc de test. À vérifier avec un vrai compte avant la séance. |
-| Messages de Git en français | ⚠️ Le conteneur affiche les messages en anglais. Les sorties de `CORRECTION.md` sont donc en anglais ; vérifier sur un poste du lycée. |
-
-Pour relancer le banc de test après une modification du sujet ou de `verifier.sh` :
-
-```bash
-cd scripts && ./test-docker.sh
-```
-
-Les sorties de chaque étape sont écrites dans `scripts/solution.log`, ignoré par Git.
-
-## Licence
-
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr)
+*Licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr) — BTS CIEL option IR, Lycée Louis Rascol, Albi.*
